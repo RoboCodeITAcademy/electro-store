@@ -1,0 +1,12 @@
+{% extends "account/base.html" %}
+{% block content %}
+<section class="section">
+<div class="row">
+    <div class="col-sm-12 center">
+        <h1>You had loggoed out.</h1>
+        <h3>Login again. <a href="{% url "account:login" %}" class="btn btn-default bg-info">Login</a></h3>
+
+    </div>
+</div>
+</section>
+{% endblock %}
