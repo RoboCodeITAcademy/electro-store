@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'store.context_pro.view_all'
             ],
         },
     },
@@ -101,8 +102,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
-
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = "account/login"
+LOGOUT_URL = "account/logout"
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -115,8 +121,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-# LOGIN_REDIRECT_URL = '/'
-# LOGIN_URL = ""
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

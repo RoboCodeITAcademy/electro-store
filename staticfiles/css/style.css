@@ -54,7 +54,9 @@ Table OF Contents
 /*----------------------------*\
 	Typography
 \*----------------------------*/
-
+html{
+  overflow-x: hidden;
+}
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;

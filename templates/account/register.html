@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<section class="section">
+    <div class="container bg-danger" style="padding: 50px; border-radius: 20px">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <div class="card">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" class="btn btn-sm btn-danger" value="Register">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-8 ">
+                <div class="h3">Electro Django Ecommerce website Register Page</div>
+                <img src="/static/img/logo.png" class="w-100" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
