@@ -34,21 +34,11 @@
 					<!-- Product main img -->
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
+                            {% for product_image in object.product_images.all %}
+                            	<div class="product-preview">
+								<img src="{{product_image.image.url}}" alt="">
+							    </div>
+                            {% endfor %}
 						</div>
 					</div>
 					<!-- /Product main img -->
@@ -56,21 +46,12 @@
 					<!-- Product thumb imgs -->
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
+                            {% for product_image in object.product_images.all %}
+                            	<div class="product-preview">
+								<img src="{{product_image.image.url}}" alt="">
+							    </div>
+                            {% endfor %}
 
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="{{object.image.url}}" alt="">
-							</div>
 						</div>
 					</div>
 					<!-- /Product thumb imgs -->
@@ -101,31 +82,29 @@
                             </p>
                             <div class="product-options">
 								<label>
-									Size
-									<select class="input-select">
-										<option value="0">X</option>
-									</select>
-								</label>
-								<label>
 									Color
 									<select class="input-select">
-                                        {% for color in object.colors %}
+                                        {% for color in object.colors.all %}
                                             <option value="0">{{ color }}</option>
                                         {% endfor %}
 									</select>
 								</label>
+                                <label for="">
+                                    <span class="color-box"></span>
+                                </label>
 							</div>
 
 							<div class="add-to-cart">
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
+										<input type="number" id="product_quantity">
 									</div>
 								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								<button class="add-to-cart-btn" onclick="AddToCart({{ object.id }})">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    add to cart
+                                </button>
 							</div>
 
 							<ul class="product-btns">

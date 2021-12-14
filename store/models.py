@@ -11,11 +11,35 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "Categories"
 
+class Colors(models.Model):
+	COLORS = (
+	('white','WHITE'),
+	('black','BLACK'),
+	('blue','BLUE'),
+	('green','GREEN'),
+	('yellow','YELLOW'),
+	('red','RED'),
+	('tomato','TOMATO'),
+	('pink','PINK'),
+	('teal','TEAL'),
+	('brown','BROWN'),
+	)
+	color = models.CharField('Rang nommi', max_length=50, choices=COLORS)
+	def __str__(self):
+		return self.color
+
 class Product(models.Model):
     COLORS = (
-        ("red", "RED"),
-        ("blue", "BLUE"),
-        ("green", "GREEN"),
+        ('white', 'WHITE'),
+        ('black', 'BLACK'),
+        ('blue', 'BLUE'),
+        ('green', 'GREEN'),
+        ('yellow', 'YELLOW'),
+        ('red', 'RED'),
+        ('tomato', 'TOMATO'),
+        ('pink', 'PINK'),
+        ('teal', 'TEAL'),
+        ('brown', 'BROWN'),
     )
     name = models.CharField("Name", max_length=100)
     slug = models.SlugField("*", max_length=100)
@@ -28,7 +52,7 @@ class Product(models.Model):
     price = models.PositiveIntegerField("Price", default=0)
     description = models.TextField("About product")
     in_stock = models.PositiveIntegerField("Count", default=1)
-    colors = models.CharField("Colors", max_length=50, choices=COLORS)
+    colors = models.ManyToManyField(Colors, related_name="colors")
     stars = models.PositiveIntegerField("Stars", default=0)
     discount = models.CharField("Discount", max_length=10, blank=True)
 
@@ -37,6 +61,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = ["-id"]
+
 
 
 # Product Images model
