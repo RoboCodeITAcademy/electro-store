@@ -64,7 +64,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo">
+								<a href="/" class="logo">
 									<img src="/static/img/logo.png" alt="">
 								</a>
 							</div>
@@ -105,38 +105,35 @@
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
-										<div class="qty">3</div>
+										<div class="qty">{{ cart.total_quantity }}</div>
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
-											<div class="product-widget">
+                                            {% for item in cart.products.all %}
+                                            	<div class="product-widget">
 												<div class="product-img">
-													<img src="/static/img/product01.png" alt="">
+													<img src="{{item.product.image.url}}" alt="">
 												</div>
 												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+													<h3 class="product-name"><a href="#">{{item.product.name}}</a></h3>
+													<h4 class="product-price"><span class="qty">{{ item.quantity }}x</span>${{item.product.price}}</h4>
 												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
+												<a href="{% url "cart:delete" item.product.id item.quantity  %}" class="delete">
+                                                    <i class="fa fa-close"></i>
+                                                </a>
 											</div>
+                                            {% endfor %}
+                                            
 
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="/static/img/product02.png" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
+
+										
 										</div>
 										<div class="cart-summary">
-											<small>3 Item(s) selected</small>
-											<h5>SUBTOTAL: $2940.00</h5>
+											<small>{{ cart.total_quantity }} Item(s) selected</small>
+											<h5>SUBTOTAL: ${{ cart.total_price }}</h5>
 										</div>
 										<div class="cart-btns">
-											<a href="#">View Cart</a>
+											<a href="{% url 'cart:cart' %}">View Cart</a>
 											<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
@@ -186,7 +183,10 @@
 			<!-- /container -->
 		</nav>
 		<!-- /NAVIGATION -->
-
+<div class="alert alert-success" id="message">
+    <button style="float: right" onclick="closeMessage()"> <i class="fa fa-times"></i></button>
+    <h3 id="message_text"></h3>
+</div>
 {% block content %}
 
 {% endblock %}

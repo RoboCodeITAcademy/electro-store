@@ -13,10 +13,21 @@ function AddToCart(product_id){
     }
     xhttp.onreadystatechange = function() {
     if (xhttp.readyState === 4 && xhttp.status === 200) {
-      var data = JSON.parse(this.responseText);
+        var data = JSON.parse(this.responseText);
+        let message = document.querySelector("#message");
+        let messageText = document.querySelector("#message_text");
+        console.log(data["success"])
+        if(data["success"] === 200){
+            messageText.innerHTML = `<h1>Success ! Product added to cart! </h1>`
+        }else{
+            messageText.innerHTML = `<h1>Error ! Something is wrong ! </h1>`
+        }
+
+        message.style.transition = "all 0.6s";
+        message.style.opacity = "1";
+        message.style.top = "100px";
 
     }else{
-      console.log('not yet')
 
       }
     }
@@ -24,7 +35,12 @@ function AddToCart(product_id){
     xhttp.open("GET", url+`?data=${data}`, true);
     xhttp.send();
 }
-console.log("work")
+function closeMessage(){
+          let message = document.querySelector("#message");
+        message.style.transition = "all 0.6s";
+        message.style.opacity = "0";
+        message.style.top = "-100px";
+}
 
 	// let priceInput = document.getElementById("product_quantity");
 	// var priceInputMax = document.getElementById('price-max'),

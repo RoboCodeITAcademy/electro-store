@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from .models import Cart
 
@@ -16,6 +16,8 @@ def cart_init(request):
 def cartView(request):
     cart = cart_init(request)
     return render(request,"cart/cart.html", {"cart":cart})
+
+
 import json
 def addToCart(request):
     print(request)
@@ -34,3 +36,13 @@ def addToCart(request):
     else:
         status['error'] = 400
     return JsonResponse(status)
+
+def deleteCartItem(request,product_id,qty):
+    cart = Cart.objects.get(id=request.session.get('user_cart_id'))
+    cart.deleteItem(product_id,qty)
+    return redirect('cart:cart')
+
+def removeCartItems(request):
+    cart = cart_init(request)
+    cart.removeAllItems()
+    return redirect('cart:cart')
