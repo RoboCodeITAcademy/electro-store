@@ -1,136 +1,131 @@
-{% extends "../wrapper.html" %}
-{% load static %}
-{% block content %}
+{% extends "../wrapper.html" %} {% load static %} {% block content %}
 
 
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<h3 class="breadcrumb-header">Cart</h3>
-						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li class="active">Cart </li>
-						</ul>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /BREADCRUMB -->
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="breadcrumb-header">Cart</h3>
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Cart </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
 
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-sm-12 col-md-9">
-                        <div class="card p-5 mt-3" style="box-shadow:  20px 20px 60px #bebebe,
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-sm-12 col-md-9">
+                <div class="card p-5 mt-3" style="box-shadow:  20px 20px 60px #bebebe,
              -20px -20px 60px #ffffff;border-radius: 10px; padding: 20px;">
-                            <div class="card-title">
-                                <h3 style="float: left">Cart Items</h3>
-                                <a href="{% url 'cart:removeAllItems' %}" class="btn btn-danger"
-                                style="float: right">
+                    <div class="card-title">
+                        <h3 style="float: left">Cart Items</h3>
+                        <a href="{% url 'cart:removeAllItems' %}" class="btn btn-danger" style="float: right">
                                     Clear Cart
                                 </a>
-                            </div>
-                            <table class="table table-striped text-center">
-                                  <thead>
-                                    <tr>
-                                      <th>Product ID</th>
-                                        <th>Actions</th>
-                                        <th>Product Image</th>
-                                      <th>Product name</th>
-                                      <th>Price</th>
-                                      <th>Quantity</th>
-                                      <th>Total price</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-
-                                  {% for product in  cart.products.all %}
-                                      {% with product as item  %}
-                                      <tr>
-                                      <td width="5%">{{ item.product.id }}</td>
-                                          <td>
-                                              <a href="{% url "cart:delete" item.product.id item.quantity  %}" class="h3">
-                                                  <i class="fa fa-trash"></i>
-                                              </a>
-                                          </td>
-                                        <td>
-                                            <img src="{{ item.product.image.url}}" width="50" height="auto" alt="No img">
-                                        </td>
-                                      <td>{{ item.product.name}}</td>
-                                      <td>
-                                          <strong>${{ item.product.price }}</strong>
-                                      </td>
-                                        <td>
-                                            <b>{{ item.quantity }}</b>
-                                        </td>
-                                        <td>
-                                            <b>${{ item.price }}</b>
-                                        </td>
-                                    </tr>
-                                      {% endwith %}
-                                  {% endfor %}
-
-                                  </tbody>
-                                </table>
-
-                        </div>
                     </div>
-                    <div class="col-sm-12 col-md-3">
-                        <div class="card" style="box-shadow:  20px 20px 60px #bebebe,
+                    <table class="table table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Actions</th>
+                                <th>Product Image</th>
+                                <th>Product name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for product in cart.products.all %} {% with product as item %}
+                            <tr>
+                                <td width="5%">{{ item.product.id }}</td>
+                                <td>
+                                    <a href="{% url " cart:delete " item.product.id item.quantity  %}" class="h3">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <img src="{{ item.product.image.url}}" width="50" height="auto" alt="No img">
+                                </td>
+                                <td>{{ item.product.name}}</td>
+                                <td>
+                                    <strong>${{ item.product.price }}</strong>
+                                </td>
+                                <td>
+                                    <b>{{ item.quantity }}</b>
+                                </td>
+                                <td>
+                                    <b>${{ item.price }}</b>
+                                </td>
+                            </tr>
+                            {% endwith %} {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <div class="card" style="box-shadow:  20px 20px 60px #bebebe,
              -20px -20px 60px #ffffff;border-radius: 10px; padding: 20px;">
-                            <h4>Cart total : ${{ cart.total_price }}</h4>
-                            <h4>Cart Items : {{ cart.total_quantity }}</h4>
-                            <br>
-                            <a class="primary-btn cta-btn" href="#">Checkout</a>
-                        </div>
-                    </div>
+                    <h4>Cart total : ${{ cart.total_price }}</h4>
+                    <h4>Cart Items : {{ cart.total_quantity }}</h4>
+                    <br>
+                    <a class="primary-btn cta-btn" href="/checkout/">Checkout</a>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-		<!-- NEWSLETTER -->
-		<div id="newsletter" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="newsletter">
-							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-							<form>
-								<input class="input" type="email" placeholder="Enter Your Email">
-								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-							</form>
-							<ul class="newsletter-follow">
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-pinterest"></i></a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /NEWSLETTER -->
+<!-- NEWSLETTER -->
+<div id="newsletter" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="newsletter">
+                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                    <form>
+                        <input class="input" type="email" placeholder="Enter Your Email">
+                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                    </form>
+                    <ul class="newsletter-follow">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /NEWSLETTER -->
 
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from .models import Cart
+from .forms import OrderForm
 
 # Create your views here.
 
@@ -46,3 +47,16 @@ def removeCartItems(request):
     cart = cart_init(request)
     cart.removeAllItems()
     return redirect('cart:cart')
+
+def checkout(request):
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            f = form.save(commit=False)
+            cart = cart_init(request)
+            f.products = cart
+            f.user = request.user
+            f.save()
+    else:
+        form = OrderForm()
+    return render(request, "cart/checkout.html", {"form":form})
