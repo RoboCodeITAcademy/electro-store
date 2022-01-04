@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "store",
     "cart",
     "account",
-    "crispy_forms"
+    "crispy_forms",
+    "debug_toolbar",
 ]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 MIDDLEWARE = [
@@ -51,8 +52,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
-
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 ROOT_URLCONF = 'electro_store.urls'
 
 TEMPLATES = [

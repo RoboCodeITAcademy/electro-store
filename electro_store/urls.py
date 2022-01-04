@@ -23,6 +23,7 @@ urlpatterns = [
     path("", include("store.urls", namespace='store')),
     path("accounts/", include("account.urls", namespace='account')),
     path("cart/", include("cart.urls", namespace='cart')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 if settings.DEBUG:
